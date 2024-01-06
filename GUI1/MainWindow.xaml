@@ -1,0 +1,116 @@
+﻿<Window x:Class="GUI1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI1"
+        mc:Ignorable="d"
+         Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="txtRonded" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="red" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <TabControl>
+        <TabItem Header="Graph">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="1" Grid.Column="1">
+                    <TextBox Style="{DynamicResource txtRonded}" TextChanged="txtBaudrate_TextChanged" Name="txtATT1" BorderBrush="#55B155" Text="0" Width="75" Height="19" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="50" Canvas.Left="95"/>
+                    <TextBlock Text="show" Width="40" Height="19" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="180" Canvas.Top="50"/>
+                </Canvas>
+                <Canvas  Grid.Row="2" Grid.Column="2">
+                    <TextBox TextChanged="txtBaudrate_TextChanged" Name="txtATT2" BorderBrush="#55B155" Text="0" Width="75" Height="19" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="50" Canvas.Left="95"/>
+                    <TextBlock Text="show" Width="40" Height="19" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="180" Canvas.Top="50"/>
+                </Canvas>
+
+            </Grid>
+        </TabItem>
+        <TabItem Header="Gui" HorizontalAlignment="Left" Width="30">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Canvas Grid.Column="0" Grid.Row="0">
+                    <TextBox Style="{DynamicResource txtRonded}" TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Text="0" Name="txtAttSum" Width="50" Height="19" Canvas.Left="50" Canvas.Top="20" />
+                    <TextBlock Text="AttSum :" Canvas.Top="20" Canvas.Left="2"/>
+                    <TextBox  Style="{DynamicResource txtRonded}"  TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Text="0" Name="txtAttStep" Width="50" Height="19" Canvas.Left="160" Canvas.Top="20" />
+                    <TextBlock Text="AttStep :" Canvas.Top="20" Canvas.Left="110"/>
+                    <CheckBox IsChecked="False" Content="AttSum" Canvas.Top="60" Canvas.Left="10"/>
+                    <CheckBox IsChecked="False" Content="AttStep" Canvas.Top="80" Canvas.Left="10"/>
+                    <TextBox Style="{DynamicResource txtRonded}" TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Text="0" Name="txtTimeStep" Width="50" Height="19" Canvas.Left="340" Canvas.Top="20" />
+                    <TextBox Style="{DynamicResource txtRonded}" TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Text="0" Name="txtSwitch" Width="50" Height="19" Canvas.Left="340" Canvas.Top="45" />
+                    <TextBox Style="{DynamicResource txtRonded}" TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Text="0" Name="txtStart" Width="50" Height="19" Canvas.Left="340" Canvas.Top="70" />
+                    <TextBlock Text="TimeStep :" Canvas.Top="20" Canvas.Left="280"/>
+                    <TextBlock Text="AttSwitch :" Canvas.Top="45" Canvas.Left="280"/>
+                    <TextBlock Text="AttStart :" Canvas.Top="70" Canvas.Left="280"/>
+                    <TextBox Style="{DynamicResource txtRonded}" KeyDown="txtBaudrate_KeyDown" TextChanged="txtBaudrate_TextChanged" BorderBrush="#55B155" Name="txtBaudrate" Width="80" Height="19" Canvas.Left="62" Canvas.Top="109" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                    <TextBlock Text="BaudRate :" Canvas.Top="109" Canvas.Left="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Button x:Name="btnOpenPort" Content="OpenPort" Width="60" Height="20" Canvas.Top="140" Canvas.Left="10" Click="btnOpenPort_Click" />
+                    <ComboBox x:Name="comprot" Text="Select Port"  Width="77" Height="20" Canvas.Top="110" Canvas.Left="160" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Canvas>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
+
+</Window>
